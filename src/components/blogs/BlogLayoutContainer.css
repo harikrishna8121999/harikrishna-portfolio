@@ -1,0 +1,11 @@
+.blog-post {
+  padding-top: 24px;
+}
+
+.blog-post-back {
+  margin-bottom: 24px;
+}
+
+.blog-post-body {
+  max-width: var(--container-max);
+}

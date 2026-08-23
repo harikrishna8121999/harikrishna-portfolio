@@ -1,0 +1,205 @@
+/* Global design tokens + shared layout primitives.
+   Every value here comes straight from DESIGN.md — do not invent new tokens. */
+
+:root {
+  /* === BACKGROUNDS === */
+  --bg-primary: #0b0d0e;
+  --bg-surface: #1a1b1c;
+  --bg-surface-elevated: #232326;
+  --bg-surface-subtle: #151515;
+  --bg-loading: #0a0a0a;
+  --bg-avatar-border: #0a0a0b;
+  --bg-skeleton: #18181b;
+  --bg-gradient-start: #1a1a1a;
+  --bg-gradient-end: #0d0d0d;
+  --bg-tweet: #1f1f23;
+
+  /* === TEXT === */
+  --text-primary: #ffffff;
+  --text-secondary: #b3b3b3;
+  --text-tertiary: #b4b4b4;
+  --text-muted: #999999;
+  --text-faint: #71767b;
+  --text-dim: #666666;
+  --text-faintest: #555555;
+  --text-ghost: #333333;
+
+  /* === BORDERS === */
+  --border-default: #444444;
+  --border-hover: #888888;
+  --border-subtle: rgba(255, 255, 255, 0.1);
+  --border-inset: #ffffff14;
+  --border-inset-highlight: #ffffff33;
+
+  /* === ACCENTS === */
+  --accent-blue: #3b82f6;
+  --accent-blue-hover: #60a5fa;
+  --accent-amber: #f59e0b;
+  --accent-green-terminal: #1ef801;
+  --accent-green: #22c55e;
+  --accent-red: #ef4444;
+  --accent-yellow: #fbbf24;
+  --accent-discord: #5865f2;
+  --accent-discord-hover: #4752c4;
+  --accent-discord-green: #23a559;
+
+  /* === STATUS === */
+  --status-active: #02ff67ff;
+  --status-active-bg: #091d11;
+  --status-active-glow: rgba(2, 255, 103, 0.5);
+  --status-past: #ff3333;
+  --status-past-bg: #1d0909;
+  --status-past-glow: rgba(255, 51, 51, 0.5);
+  --status-future: #ffaa00;
+  --status-future-bg: #1d1509;
+  --status-future-glow: rgba(255, 170, 0, 0.5);
+  --status-role: #4ade80;
+
+  /* === HEART === */
+  --heart-hover: rgb(190, 29, 29);
+  --heart-glow: #e63946aa;
+
+  /* === TYPOGRAPHY === */
+  --font-body:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans',
+    'Helvetica Neue', sans-serif;
+  --font-ui: 'Figtree', sans-serif;
+  --font-mono: 'JetBrains Mono', 'Courier New', monospace;
+
+  /* === SPACING === */
+  --container-max: 700px;
+  --container-padding: 18px;
+  --container-padding-md: 25px;
+  --container-padding-sm: 20px;
+
+  /* === RADIUS === */
+  --radius-sm: 2px;
+  --radius-md: 3px;
+  --radius-lg: 4px;
+  --radius-xl: 6px;
+  --radius-2xl: 8px;
+  --radius-3xl: 10px;
+  --radius-pill: 999px;
+  --radius-full: 50%;
+  --radius-round: 50px;
+
+  /* === ANIMATION === */
+  --duration-fast: 0.2s;
+  --duration-normal: 0.25s;
+  --duration-slow: 0.3s;
+  --ease-spring: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  --ease-material: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-loading: cubic-bezier(0.5, 0, 0.9, 1);
+
+  /* === SHADOWS === */
+  --shadow-sm: 0px 4px 16px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 6px 16px rgba(0, 0, 0, 0.25);
+  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.1);
+  --shadow-card: 0 2px 8px -4px #0006;
+  --shadow-composite:
+    0px 32px 64px -16px #0006, 0px 16px 32px -8px #0006, 0px 8px 16px -4px #0004,
+    0px 4px 8px -2px #0004, 0px -8px 16px -1px #0003, 0px 2px 4px -1px #0004, 0px 0px 0px 1px #000,
+    inset 0px 0px 0px 1px #ffffff14, inset 0px 1px 0px #ffffff33;
+  --shadow-composite-hover:
+    0px 40px 80px -16px #0008, 0px 20px 40px -8px #0008, 0px 12px 20px -4px #0006,
+    0px 6px 12px -2px #0006, 0px -12px 20px -1px #0004, 0px 4px 8px -1px #0006,
+    0px 0px 0px 1px #000, inset 0px 0px 0px 1px #ffffff20, inset 0px 1px 0px #ffffff40;
+}
+
+/* === SHARED LAYOUT === */
+
+.app-shell {
+  min-height: 100vh;
+}
+
+.container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 var(--container-padding);
+}
+
+.page {
+  padding-bottom: 40px;
+}
+
+section {
+  scroll-margin: 50px;
+  margin-bottom: 40px;
+}
+
+.section-content {
+  margin-top: 16px;
+}
+
+/* Small secondary "View All" style link used across sections */
+.view-all-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-sm);
+  color: var(--text-secondary);
+  font-family: var(--font-ui);
+  font-size: 0.85rem;
+  font-weight: 500;
+  box-shadow: var(--shadow-sm);
+  transition: all var(--duration-slow) ease;
+}
+
+.view-all-link:hover {
+  border-color: var(--border-hover);
+  color: var(--text-primary);
+}
+
+.view-all-link svg {
+  transition: transform var(--duration-slow) ease;
+}
+
+.view-all-link:hover svg {
+  transform: translateX(3px);
+}
+
+/* Generic action button (Email me, Download, ...) */
+.action-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 8px;
+  background: var(--bg-surface);
+  color: var(--text-primary);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-lg);
+  font-family: var(--font-ui);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  transition: all var(--duration-slow) var(--ease-material);
+}
+
+.action-button:hover {
+  background: #1a1b1cc7;
+  border-color: var(--border-hover);
+}
+
+@media (max-width: 700px) {
+  .container {
+    padding: 0 var(--container-padding-md);
+  }
+}
+
+@media (max-width: 400px) {
+  .container {
+    padding: 0 var(--container-padding-sm);
+  }
+}
+
+/* Click particle canvas — full-viewport overlay, never intercepts pointer events. */
+.click-spark-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: 1100;
+  pointer-events: none;
+}

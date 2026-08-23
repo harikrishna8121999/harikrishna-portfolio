@@ -1,0 +1,81 @@
+.loading-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 900;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  background: var(--bg-loading);
+}
+
+.loading-svg {
+  width: 180px;
+  height: 180px;
+  overflow: visible;
+}
+
+.loading-trace-bg,
+.loading-trace {
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.loading-trace-bg {
+  stroke: var(--text-ghost);
+}
+
+.loading-trace {
+  stroke: var(--text-secondary);
+  stroke-dasharray: 40 160;
+  animation: loading-flow 3s var(--ease-loading) infinite;
+}
+
+.loading-chip {
+  fill: none;
+  stroke: var(--text-ghost);
+  stroke-width: 2;
+}
+
+.loading-chip-core {
+  fill: var(--bg-surface);
+  stroke: var(--text-secondary);
+  stroke-width: 2;
+  animation: loading-pulse 3s ease-in-out infinite;
+}
+
+.loading-text {
+  color: var(--text-dim);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.5px;
+}
+
+@keyframes loading-flow {
+  0% {
+    stroke-dashoffset: 200;
+  }
+  100% {
+    stroke-dashoffset: -40;
+  }
+}
+
+@keyframes loading-pulse {
+  0%,
+  100% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .loading-trace,
+  .loading-chip-core {
+    animation: none;
+  }
+}
