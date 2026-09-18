@@ -1,6 +1,6 @@
 /**
- * Vercel serverless function — proxies Vercel Web Analytics so the dashboard can
- * read real traffic without ever shipping VERCEL_TOKEN to the browser.
+ * Vercel serverless function — proxies the Vercel Web Analytics REST API so the
+ * dashboard can read real traffic without ever shipping VERCEL_TOKEN to the browser.
  *
  * Required environment variables (set them in the Vercel dashboard, not in .env):
  *   VERCEL_TOKEN      — a personal access token with read access to the project
@@ -9,6 +9,8 @@
  *
  * With none of those set the endpoint responds 503 and the dashboard renders its
  * "not configured" state instead of failing.
+ *
+ * API reference: https://vercel.com/docs/rest-api/web-analytics
  */
 
 interface RequestLike {
@@ -29,16 +31,19 @@ interface SeriesPoint {
   visitors: number;
 }
 
-interface VercelTimeseriesRow {
-  key?: string;
-  date?: string;
-  total?: number;
-  devices?: number;
+interface VercelAggregateRow {
+  timestamp?: string;
+  requestPath?: string;
+  pageviews?: number;
+  visitors?: number;
 }
 
-interface VercelPathRow {
-  key?: string;
-  total?: number;
+interface VercelCountResponse {
+  data?: { pageviews?: number; visitors?: number };
+}
+
+interface VercelAggregateResponse {
+  data?: VercelAggregateRow[];
 }
 
 const PERIOD_MS: Record<Period, number> = {
@@ -51,7 +56,7 @@ const isPeriod = (value: unknown): value is Period =>
   value === '24h' || value === '7d' || value === '30d';
 
 const buildUrl = (path: string, params: Record<string, string>, teamId?: string) => {
-  const url = new URL(`https://vercel.com/api/web-analytics/${path}`);
+  const url = new URL(`https://api.vercel.com/v1/query/web-analytics/${path}`);
   for (const [key, value] of Object.entries(params)) url.searchParams.set(key, value);
   if (teamId) url.searchParams.set('teamId', teamId);
   return url.toString();
@@ -78,53 +83,51 @@ export default async function handler(req: RequestLike, res: ResponseLike) {
   const from = to - PERIOD_MS[period];
   const params = {
     projectId,
-    from: new Date(from).toISOString(),
-    to: new Date(to).toISOString(),
-    environment: 'production',
+    since: new Date(from).toISOString(),
+    until: new Date(to).toISOString(),
   };
 
   const authHeaders = { Authorization: `Bearer ${token}` };
 
   try {
-    const [timeseriesRes, pathsRes] = await Promise.all([
-      fetch(buildUrl('timeseries', params, teamId), { headers: authHeaders }),
-      fetch(buildUrl('path', { ...params, limit: '5' }, teamId), { headers: authHeaders }),
+    const [countRes, timeseriesRes, pathsRes] = await Promise.all([
+      fetch(buildUrl('visits/count', params, teamId), { headers: authHeaders }),
+      fetch(buildUrl('visits/aggregate', { ...params, by: 'day' }, teamId), {
+        headers: authHeaders,
+      }),
+      fetch(buildUrl('visits/aggregate', { ...params, by: 'requestPath', limit: '5' }, teamId), {
+        headers: authHeaders,
+      }),
     ]);
 
-    if (!timeseriesRes.ok) {
-      res
-        .status(timeseriesRes.status)
-        .json({ error: 'upstream_error', message: await timeseriesRes.text() });
+    if (!countRes.ok) {
+      res.status(countRes.status).json({ error: 'upstream_error', message: await countRes.text() });
       return;
     }
 
-    const timeseries = (await timeseriesRes.json()) as { data?: VercelTimeseriesRow[] };
-    const paths = pathsRes.ok
-      ? ((await pathsRes.json()) as { data?: VercelPathRow[] })
+    const count = (await countRes.json()) as VercelCountResponse;
+    const timeseries = timeseriesRes.ok
+      ? ((await timeseriesRes.json()) as VercelAggregateResponse)
       : { data: [] };
+    const paths = pathsRes.ok ? ((await pathsRes.json()) as VercelAggregateResponse) : { data: [] };
 
     const series: SeriesPoint[] = (timeseries.data ?? []).map((row) => ({
-      timestamp: new Date(row.key ?? row.date ?? to).getTime(),
-      pageviews: row.total ?? 0,
-      visitors: row.devices ?? 0,
+      timestamp: new Date(row.timestamp ?? to).getTime(),
+      pageviews: row.pageviews ?? 0,
+      visitors: row.visitors ?? 0,
     }));
-
-    const totals = series.reduce(
-      (acc, point) => ({
-        pageviews: acc.pageviews + point.pageviews,
-        visitors: acc.visitors + point.visitors,
-      }),
-      { pageviews: 0, visitors: 0 }
-    );
 
     res.setHeader('Cache-Control', 's-maxage=300, stale-while-revalidate=600');
     res.status(200).json({
       period,
-      totals,
+      totals: {
+        pageviews: count.data?.pageviews ?? 0,
+        visitors: count.data?.visitors ?? 0,
+      },
       series,
       topPages: (paths.data ?? []).map((row) => ({
-        path: row.key ?? '/',
-        pageviews: row.total ?? 0,
+        path: row.requestPath ?? '/',
+        pageviews: row.pageviews ?? 0,
       })),
     });
   } catch (error) {
