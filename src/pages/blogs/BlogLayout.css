@@ -18,7 +18,8 @@
 
 .blog-card {
   display: block;
-  border: 1px solid var(--border-default);
+  padding: 16px;
+  border: 1px dashed var(--border-default);
   transition: border-color var(--duration-slow) ease;
 }
 
@@ -29,8 +30,10 @@
 .blog-card-image-wrap {
   position: relative;
   aspect-ratio: 1000 / 420;
-  border-bottom: 1px solid var(--border-default);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-lg);
   overflow: hidden;
+  box-shadow: var(--shadow-card);
 }
 
 .blog-card-image {
@@ -46,7 +49,7 @@
 }
 
 .blog-card-body {
-  padding: 16px;
+  padding-top: 16px;
 }
 
 .blog-card-meta {
