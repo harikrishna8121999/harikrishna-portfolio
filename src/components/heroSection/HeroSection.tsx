@@ -1,18 +1,16 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router';
-import { HiOutlineQrCode } from 'react-icons/hi2';
 import { LuTimer } from 'react-icons/lu';
 import { GrLocation } from 'react-icons/gr';
 import { RiVerifiedBadgeFill } from 'react-icons/ri';
-import { FaEnvelope } from 'react-icons/fa';
+import { FaEnvelope, FaGithub } from 'react-icons/fa';
+import { FaXTwitter } from 'react-icons/fa6';
 import { userImages } from '../../data/images';
-import { heroSocialLinks } from '../../data/socialLinks';
+import { heroSocialLinks, twitterProfile, githubProfile } from '../../data/socialLinks';
 import { getDailyDecoration } from '../../utils/ImageDecoration';
-import Tooltip from '../tooltip/Tooltip';
 import './HeroSection.css';
 
 const NAME = 'HariKrishna V Shetty';
-const USERNAME = 'harikrishna8121999';
 const EMAIL = 'harikrishnavshetty@gmail.com';
 
 const formatIST = (date: Date) =>
@@ -26,7 +24,6 @@ const formatIST = (date: Date) =>
 const HeroSection = () => {
   const [time, setTime] = useState(() => formatIST(new Date()));
   const [imgLoaded, setImgLoaded] = useState(false);
-  const [showQR, setShowQR] = useState(false);
   const [decorationInfo] = useState(() => getDailyDecoration());
 
   useEffect(() => {
@@ -37,31 +34,56 @@ const HeroSection = () => {
   return (
     <section className="hero-section" id="home">
       <div className="hero-top">
-        <div className="hero-avatar-wrap">
-          {!imgLoaded && <span className="hero-avatar-skeleton" />}
-          <img
-            className="hero-avatar"
-            src={showQR ? userImages.profile.qrCode : userImages.profile.avatar}
-            alt={showQR ? `QR code linking to ${NAME}'s portfolio` : NAME}
-            // A cached image can finish before React attaches onLoad, which would
-            // leave the skeleton up forever — the ref catches that case.
-            ref={(node) => {
-              if (node?.complete) setImgLoaded(true);
-            }}
-            onLoad={() => setImgLoaded(true)}
-            onError={() => setImgLoaded(true)}
-            width={96}
-            height={96}
-          />
-          <Tooltip text={showQR ? 'Show photo' : 'Show QR code'} position="right">
-            <button
-              className="hero-qr-toggle"
-              onClick={() => setShowQR((prev) => !prev)}
-              aria-label={showQR ? 'Show photo' : 'Show QR code'}
-            >
-              <HiOutlineQrCode size={16} />
-            </button>
-          </Tooltip>
+        <div className="hero-profile">
+          <div className="hero-avatar-wrap">
+            {!imgLoaded && <span className="hero-avatar-skeleton" />}
+            <img
+              className="hero-avatar"
+              src={userImages.profile.avatar}
+              alt={NAME}
+              // A cached image can finish before React attaches onLoad, which would
+              // leave the skeleton up forever — the ref catches that case.
+              ref={(node) => {
+                if (node?.complete) setImgLoaded(true);
+              }}
+              onLoad={() => setImgLoaded(true)}
+              onError={() => setImgLoaded(true)}
+              width={96}
+              height={96}
+            />
+          </div>
+
+          <div className="hero-info">
+            <h1 className="hero-name">
+              {NAME}
+              <RiVerifiedBadgeFill className="hero-verified" aria-label="Verified" />
+            </h1>
+
+            <div className="hero-status">
+              <span className="hero-status-dot" />
+              <span>Building</span>
+              <a
+                className="hero-status-link"
+                href="https://letro.ai"
+                target="_blank"
+                rel="noreferrer"
+              >
+                letro.ai
+              </a>
+            </div>
+
+            <div className="hero-meta">
+              <span className="hero-meta-item">
+                <GrLocation className="hero-meta-icon" />
+                Bengaluru, India
+              </span>
+              <span className="hero-meta-sep">—</span>
+              <span className="hero-meta-item">
+                <LuTimer className="hero-meta-icon" />
+                {time} IST
+              </span>
+            </div>
+          </div>
         </div>
 
         <img
@@ -72,94 +94,98 @@ const HeroSection = () => {
         />
       </div>
 
-      <h1 className="hero-name">
-        {NAME}
-        <RiVerifiedBadgeFill className="hero-verified" aria-label="Verified" />
-      </h1>
-
-      <a
-        className="hero-username"
-        href={`https://github.com/${USERNAME}`}
-        target="_blank"
-        rel="noreferrer"
-      >
-        @{USERNAME}
-      </a>
-
-      <div className="hero-status">
-        <span className="hero-status-dot" />
-        <span>Building</span>
-        <a
-          className="hero-status-link"
-          href="https://www.npmjs.com/package/antigravity-workflows"
-          target="_blank"
-          rel="noreferrer"
-        >
-          antigravity-workflows
-        </a>
-      </div>
-
-      <div className="hero-meta">
-        <span className="hero-meta-item">
-          <GrLocation className="hero-meta-icon" />
-          Bengaluru, India
-        </span>
-        <span className="hero-meta-sep">—</span>
-        <span className="hero-meta-item">
-          <LuTimer className="hero-meta-icon" />
-          {time} IST
-        </span>
-      </div>
-
       <ul className="hero-bio">
         <li>
-          Full-Stack Software Engineer <strong>(SDE-2)</strong> with <strong>4+ years</strong>{' '}
+          Full-Stack Software Engineer <strong>(SDE-2)</strong> with <strong>5+ years</strong>{' '}
           shipping production-grade SaaS across frontend and backend.
         </li>
         <li>
-          Currently at <strong>Poppulo</strong>, building an enterprise email content platform —
-          drag-and-drop builders, templates, and microsites.
+          Currently at <strong>Poppulo</strong>, building the email content platform behind
+          enterprise communications, covering templates, personalization, and deliverability at
+          scale.
         </li>
         <li>
-          Off the clock I ship <strong>open-source AI developer tooling</strong>: MCP servers, agent
-          workflows, and small SaaS products.
+          Interested in <strong>email infrastructure</strong> and always learning{' '}
+          <strong>AI concepts</strong> as the space evolves.
         </li>
       </ul>
 
-      <div className="hero-links">
+      <div className="hero-social-cards">
+        <div className="hero-social-card">
+          <span className="hero-social-avatar">
+            <FaXTwitter />
+          </span>
+          <div className="hero-social-info">
+            <span className="hero-social-name">
+              <span className="hero-social-name-text">{NAME}</span>
+              <RiVerifiedBadgeFill className="hero-social-verified" aria-label="Verified" />
+            </span>
+            <span className="hero-social-handle">@{twitterProfile.handle}</span>
+          </div>
+          <a
+            className="action-button hero-social-follow"
+            href={twitterProfile.url}
+            target="_blank"
+            rel="noreferrer"
+          >
+            Follow
+          </a>
+        </div>
+
+        <div className="hero-social-card">
+          <span className="hero-social-avatar">
+            <FaGithub />
+          </span>
+          <div className="hero-social-info">
+            <span className="hero-social-name">
+              <span className="hero-social-name-text">GitHub</span>
+            </span>
+            <span className="hero-social-handle">@{githubProfile.handle}</span>
+          </div>
+          <a
+            className="action-button hero-social-follow"
+            href={githubProfile.url}
+            target="_blank"
+            rel="noreferrer"
+          >
+            Follow
+          </a>
+        </div>
+      </div>
+
+      <div className="hero-icon-row">
+        <a className="action-button hero-email" href={`mailto:${EMAIL}`}>
+          <FaEnvelope size={12} />
+          Email me
+        </a>
+        <span className="hero-icon-divider" aria-hidden="true" />
         {heroSocialLinks.map((link) => {
           const isInternal = link.url.startsWith('/');
-          const content = (
-            <>
-              <span className="hero-link-icon" style={{ color: link.color }}>
-                {link.icon}
-              </span>
-              {link.name}
-            </>
-          );
-
           return isInternal ? (
-            <Link key={link.name} className="hero-link" to={link.url}>
-              {content}
+            <Link
+              key={link.name}
+              className="hero-icon-link"
+              to={link.url}
+              aria-label={link.name}
+              style={{ color: link.color }}
+            >
+              {link.icon}
             </Link>
           ) : (
             <a
               key={link.name}
-              className="hero-link"
+              className="hero-icon-link"
               href={link.url}
               target="_blank"
               rel="noreferrer"
+              aria-label={link.name}
+              style={{ color: link.color }}
             >
-              {content}
+              {link.icon}
             </a>
           );
         })}
       </div>
-
-      <a className="action-button hero-email" href={`mailto:${EMAIL}`}>
-        <FaEnvelope size={12} />
-        Email me
-      </a>
     </section>
   );
 };

@@ -4,14 +4,14 @@ import SkillSection from '../../components/skillSection/SkillSection';
 import Experience from '../../components/experience/Experience';
 import Calendar from '../../components/calendar/Calendar';
 import Projects from '../../components/projects/Projects';
-import UsesSection from '../../components/uses/UsesSection';
 import AnalyticsSection from '../../components/analyticsSection/AnalyticsSection';
 import ContactMe from '../../components/contactMe/ContactMe';
 import Footer from '../../components/footer/Footer';
+import { BlogCard, posts } from '../blogs/BlogLayout';
 
 /**
  * Section order is fixed by AGENTS.md:
- * Hero → Skills → Experience → Projects → Uses → Analytics → Contact → Footer
+ * Hero → Skills → Experience → Projects → Analytics → Contact → Footer
  */
 const Home = () => {
   return (
@@ -28,8 +28,10 @@ const Home = () => {
       <section className="experience-section" id="experience">
         <SectionTitle>Experience</SectionTitle>
         <div className="section-content">
-          <Experience />
-          <Calendar />
+          <div className="experience-group">
+            <Experience />
+            <Calendar />
+          </div>
         </div>
       </section>
 
@@ -40,10 +42,16 @@ const Home = () => {
         </div>
       </section>
 
-      <section className="uses-section" id="uses">
-        <SectionTitle>Uses</SectionTitle>
+      <section className="blogs-section" id="blogs">
+        <SectionTitle>Blogs</SectionTitle>
         <div className="section-content">
-          <UsesSection />
+          <ul className="blogs-list">
+            {posts.slice(0, 3).map((post) => (
+              <li key={post.url}>
+                <BlogCard post={post} />
+              </li>
+            ))}
+          </ul>
         </div>
       </section>
 

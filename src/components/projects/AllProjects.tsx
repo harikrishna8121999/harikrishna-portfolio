@@ -1,5 +1,5 @@
 import { Link } from 'react-router';
-import { HiArrowLeft } from 'react-icons/hi2';
+import { HiArrowLeft, HiArrowRight } from 'react-icons/hi2';
 import ProjectCard from './ProjectCard';
 import { allProjects } from '../../data/projects';
 import './Projects.css';
@@ -14,9 +14,19 @@ const AllProjects = () => {
         ))}
       </div>
 
-      <Link className="view-all-link projects-view-all" to="/">
-        <HiArrowLeft /> Back Home
-      </Link>
+      <div className="projects-page-links">
+        <Link className="view-all-link" to="/">
+          <HiArrowLeft /> Back Home
+        </Link>
+        <a
+          className="view-all-link"
+          href="https://github.com/harikrishna8121999"
+          target="_blank"
+          rel="noreferrer"
+        >
+          More on GitHub <HiArrowRight />
+        </a>
+      </div>
     </div>
   );
 };

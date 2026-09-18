@@ -124,13 +124,16 @@
 
 ### Calendar Colors
 
+Overridden from the original monochrome spec to use GitHub's own dark-theme green scale, so the
+calendar reads as recognizably "GitHub" rather than blending into the grayscale UI.
+
 | Token | Hex | Usage |
 |-------|-----|-------|
-| `cal-level-0` | `#383838` | No contributions |
-| `cal-level-1` | `#606060` | Low contributions |
-| `cal-level-2` | `#8C8C8C` | Medium contributions |
-| `cal-level-3` | `#BABABA` | High contributions |
-| `cal-level-4` | `#EBEBEB` | Max contributions |
+| `cal-level-0` | `#161B22` | No contributions |
+| `cal-level-1` | `#0E4429` | Low contributions |
+| `cal-level-2` | `#006D32` | Medium contributions |
+| `cal-level-3` | `#26A641` | High contributions |
+| `cal-level-4` | `#39D353` | Max contributions |
 
 ---
 

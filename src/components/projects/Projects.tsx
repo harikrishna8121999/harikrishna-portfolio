@@ -9,7 +9,7 @@ const Projects = () => {
   return (
     <div className="projects">
       <div className="projects-grid">
-        {featuredProjects.map((project) => (
+        {featuredProjects.slice(0, 3).map((project) => (
           <ProjectCard key={project.name} {...project} />
         ))}
       </div>

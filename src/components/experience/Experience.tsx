@@ -13,15 +13,7 @@ const experiences = [
     status: 'present',
     logoUrl: userImages.misc.poppulo,
     links: [{ url: 'https://www.poppulo.com/', icon: <RiShareBoxFill /> }],
-    description: [
-      'Promoted from SDE-1 to SDE-2 on the strength of delivery and feature ownership.',
-      'Delivered full-stack features for a large-scale enterprise email content platform — drag-and-drop builders, templates, and microsites.',
-      'Contributed backend work routing application data through AWS Lambda to data science services, powering the platform’s first AI-driven Email Auto-Translation feature.',
-      'Owned Email Preview Text and Emoji Support end to end, coordinating with Product and Design through to full-stack delivery.',
-      'Helped plan and bootstrap a next-gen Template Manager: t-shirt sizing, architecture discussions, and repository setup.',
-      'Refactored legacy UI with reusable LESS mixins, cutting page redirects and smoothing out the editing experience.',
-      'Supported production incidents and CI pipeline issues to keep releases stable.',
-    ],
+    description: [],
   },
   {
     company: 'Sacumen',

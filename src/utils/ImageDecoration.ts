@@ -8,7 +8,6 @@ export interface DecorationInfo {
 
 const decorationMeta: Record<keyof typeof userImages.decorations, string> = {
   soulLeavingBody: 'Soul leaving body',
-  cyberKatana: 'Cyber katana',
   candlelightDark: 'Candlelight in the dark',
   shy: 'Shy',
   blossomBurst: 'Blossom burst',
@@ -20,9 +19,9 @@ const decorationMeta: Record<keyof typeof userImages.decorations, string> = {
  */
 const weekdayDecorations: (keyof typeof userImages.decorations)[] = [
   'soulLeavingBody', // Sunday
-  'cyberKatana', // Monday
+  'blossomBurst', // Monday
   'candlelightDark', // Tuesday
-  'cyberKatana', // Wednesday
+  'shy', // Wednesday
   'candlelightDark', // Thursday
   'shy', // Friday
   'blossomBurst', // Saturday

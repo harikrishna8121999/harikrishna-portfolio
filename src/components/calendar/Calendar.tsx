@@ -4,9 +4,9 @@ import './Calendar.css';
 
 const GITHUB_USERNAME = 'harikrishna8121999';
 
-/** Calendar levels 0-4 — see DESIGN.md "Calendar Colors". */
+/** Calendar levels 0-4 — GitHub's dark-theme green scale, see DESIGN.md "Calendar Colors". */
 const calendarTheme = {
-  dark: ['#383838', '#606060', '#8C8C8C', '#BABABA', '#EBEBEB'],
+  dark: ['#161B22', '#0E4429', '#006D32', '#26A641', '#39D353'],
 };
 
 interface TooltipState {

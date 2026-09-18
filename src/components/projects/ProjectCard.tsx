@@ -12,7 +12,7 @@ interface ProjectCardProps {
   name: string;
   desc: string;
   tech: string[];
-  github: string;
+  github?: string;
   live?: string;
   demoWarning?: boolean;
   isUnderDevelopment?: boolean;
@@ -96,7 +96,7 @@ const ProjectCard = ({
         </ul>
 
         <div className="project-links">
-          {!isPrivate && (
+          {github && !isPrivate && (
             <a className="action-button" href={github} target="_blank" rel="noreferrer">
               <FaGithub size={12} /> Code
             </a>

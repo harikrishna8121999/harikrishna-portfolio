@@ -28,6 +28,8 @@ const ExperienceCard = ({
   isExpanded,
   onToggle,
 }: ExperienceCardProps) => {
+  const hasDescription = description.length > 0;
+
   return (
     <li className="experience-item">
       <span className={`experience-dot ${status}`} aria-hidden="true" />
@@ -62,19 +64,23 @@ const ExperienceCard = ({
           </div>
         </div>
 
-        <div className={isExpanded ? 'experience-body expanded' : 'experience-body'}>
-          <div className="experience-body-inner">
-            <ul className="experience-points">
-              {description.map((point) => (
-                <li key={point}>{point}</li>
-              ))}
-            </ul>
-          </div>
-        </div>
+        {hasDescription && (
+          <>
+            <div className={isExpanded ? 'experience-body expanded' : 'experience-body'}>
+              <div className="experience-body-inner">
+                <ul className="experience-points">
+                  {description.map((point) => (
+                    <li key={point}>{point}</li>
+                  ))}
+                </ul>
+              </div>
+            </div>
 
-        <button className="experience-toggle" onClick={onToggle} aria-expanded={isExpanded}>
-          {isExpanded ? 'Show less' : 'Show more'}
-        </button>
+            <button className="experience-toggle" onClick={onToggle} aria-expanded={isExpanded}>
+              {isExpanded ? 'Show less' : 'Show more'}
+            </button>
+          </>
+        )}
       </div>
     </li>
   );

@@ -6,7 +6,6 @@ const navLinks = [
   { to: '/', label: 'Home', end: true },
   { to: '/projects', label: 'Projects', end: false },
   { to: '/blogs', label: 'Blogs', end: false },
-  { to: '/uses', label: 'Uses', end: false },
   { to: '/resume', label: 'Resume', end: false },
 ];
 

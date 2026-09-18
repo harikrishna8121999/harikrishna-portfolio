@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://harikrishna.dev/sitemap.xml
+Sitemap: https://harikrishna-v-shetty.vercel.app/sitemap.xml

@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://harikrishna.dev/</loc><priority>1.0</priority></url>
-  <url><loc>https://harikrishna.dev/projects</loc><priority>0.8</priority></url>
-  <url><loc>https://harikrishna.dev/blogs</loc><priority>0.8</priority></url>
-  <url><loc>https://harikrishna.dev/blogs/shipping-an-mcp-server</loc><priority>0.7</priority></url>
-  <url><loc>https://harikrishna.dev/uses</loc><priority>0.6</priority></url>
-  <url><loc>https://harikrishna.dev/resume</loc><priority>0.6</priority></url>
-  <url><loc>https://harikrishna.dev/analytics</loc><priority>0.5</priority></url>
+  <url><loc>https://harikrishna-v-shetty.vercel.app/</loc><priority>1.0</priority></url>
+  <url><loc>https://harikrishna-v-shetty.vercel.app/projects</loc><priority>0.8</priority></url>
+  <url><loc>https://harikrishna-v-shetty.vercel.app/blogs</loc><priority>0.8</priority></url>
+  <url><loc>https://harikrishna-v-shetty.vercel.app/uses</loc><priority>0.6</priority></url>
+  <url><loc>https://harikrishna-v-shetty.vercel.app/resume</loc><priority>0.6</priority></url>
+  <url><loc>https://harikrishna-v-shetty.vercel.app/analytics</loc><priority>0.5</priority></url>
 </urlset>

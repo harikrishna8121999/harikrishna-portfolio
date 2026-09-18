@@ -50,3 +50,13 @@ export const socialLinks: SocialLink[] = [
 export const heroSocialLinks = socialLinks.filter((link) =>
   ['GitHub', 'LinkedIn', 'npm', 'Resume'].includes(link.name)
 );
+
+export const twitterProfile = {
+  handle: 'harikri88580279',
+  url: 'https://x.com/harikri88580279',
+};
+
+export const githubProfile = {
+  handle: 'harikrishna8121999',
+  url: 'https://github.com/harikrishna8121999',
+};

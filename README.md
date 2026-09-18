@@ -31,8 +31,7 @@ pnpm format        # prettier --write
 |------|------|
 | `/`, `/home` | Hero, skills, experience + GitHub calendar, projects, uses, analytics, contact |
 | `/projects` | Every project |
-| `/blogs` | Post listing |
-| `/blogs/shipping-an-mcp-server` | Blog post |
+| `/blogs` | Post listing (links out to dev.to) |
 | `/uses` | Full software + hardware list |
 | `/resume` | Inline PDF viewer |
 | `/analytics` | Traffic dashboard |

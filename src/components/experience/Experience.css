@@ -1,3 +1,13 @@
+.experience-group {
+  border: 1px dashed var(--border-default);
+  padding: 16px;
+  transition: border-color var(--duration-slow) ease;
+}
+
+.experience-group:hover {
+  border-color: var(--border-hover);
+}
+
 .experience-timeline {
   position: relative;
   display: flex;
@@ -38,13 +48,7 @@
 }
 
 .experience-card {
-  padding: 12px;
-  border: 1px solid var(--border-default);
-  transition: border-color var(--duration-slow) ease;
-}
-
-.experience-card:hover {
-  border-color: var(--border-hover);
+  padding: 0;
 }
 
 .experience-head {
@@ -194,6 +198,10 @@
 }
 
 @media (max-width: 400px) {
+  .experience-group {
+    padding: 12px;
+  }
+
   .experience-timeline {
     padding-left: 16px;
   }

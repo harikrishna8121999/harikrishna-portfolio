@@ -8,7 +8,7 @@
   display: flex;
   gap: 16px;
   padding: 12px;
-  border: 1px solid var(--border-default);
+  border: 1px dashed var(--border-default);
   transition: border-color var(--duration-slow) ease;
 }
 
@@ -131,9 +131,18 @@
   margin-top: 20px;
 }
 
+.projects-page-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 20px;
+}
+
 @media (max-width: 700px) {
   .project-card {
     flex-direction: column;
+    gap: 12px;
+    padding: 20px;
   }
 
   .project-banner-wrap {

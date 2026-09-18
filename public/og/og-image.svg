@@ -18,8 +18,8 @@
   <text x="128" y="228" fill="#ffffff" font-family="Figtree, 'Segoe UI', sans-serif" font-size="72" font-weight="700">HariKrishna V Shetty</text>
   <text x="128" y="288" fill="#4ade80" font-family="Figtree, 'Segoe UI', sans-serif" font-size="34" font-weight="500">Full-Stack Software Engineer · SDE-2</text>
 
-  <text x="128" y="360" fill="#b3b3b3" font-family="Figtree, 'Segoe UI', sans-serif" font-size="28">4+ years shipping production-grade SaaS across</text>
-  <text x="128" y="400" fill="#b3b3b3" font-family="Figtree, 'Segoe UI', sans-serif" font-size="28">frontend and backend — plus open-source AI tooling.</text>
+  <text x="128" y="360" fill="#b3b3b3" font-family="Figtree, 'Segoe UI', sans-serif" font-size="28">5+ years shipping production-grade SaaS across</text>
+  <text x="128" y="400" fill="#b3b3b3" font-family="Figtree, 'Segoe UI', sans-serif" font-size="28">frontend and backend, exploring AI concepts along the way.</text>
 
   <g font-family="'JetBrains Mono', monospace" font-size="22" fill="#b3b3b3">
     <rect x="128" y="440" width="112" height="42" rx="4" fill="#232326"/>
@@ -33,5 +33,5 @@
   </g>
 
   <circle cx="152" cy="530" r="7" fill="#02ff67"/>
-  <text x="172" y="538" fill="#666666" font-family="'JetBrains Mono', monospace" font-size="22">Bengaluru, India — harikrishna.dev</text>
+  <text x="172" y="538" fill="#666666" font-family="'JetBrains Mono', monospace" font-size="22">Bengaluru, India — harikrishna-v-shetty.vercel.app</text>
 </svg>

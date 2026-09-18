@@ -138,10 +138,9 @@ export const userImages = {
   },
   decorations: {
     soulLeavingBody: string,  // Sunday decoration
-    cyberKatana: string,      // Monday/Wednesday decoration
     candlelightDark: string,  // Tuesday/Thursday decoration
-    shy: string,              // Friday decoration
-    blossomBurst: string,     // Saturday decoration
+    shy: string,              // Wednesday/Friday decoration
+    blossomBurst: string,     // Monday/Saturday decoration
   },
 };
 ```
