@@ -38,10 +38,6 @@ interface VercelAggregateRow {
   visitors?: number;
 }
 
-interface VercelCountResponse {
-  data?: { pageviews?: number; visitors?: number };
-}
-
 interface VercelAggregateResponse {
   data?: VercelAggregateRow[];
 }
@@ -90,8 +86,7 @@ export default async function handler(req: RequestLike, res: ResponseLike) {
   const authHeaders = { Authorization: `Bearer ${token}` };
 
   try {
-    const [countRes, timeseriesRes, pathsRes] = await Promise.all([
-      fetch(buildUrl('visits/count', params, teamId), { headers: authHeaders }),
+    const [timeseriesRes, pathsRes] = await Promise.all([
       fetch(buildUrl('visits/aggregate', { ...params, by: 'day' }, teamId), {
         headers: authHeaders,
       }),
@@ -100,15 +95,14 @@ export default async function handler(req: RequestLike, res: ResponseLike) {
       }),
     ]);
 
-    if (!countRes.ok) {
-      res.status(countRes.status).json({ error: 'upstream_error', message: await countRes.text() });
+    if (!timeseriesRes.ok) {
+      res
+        .status(timeseriesRes.status)
+        .json({ error: 'upstream_error', message: await timeseriesRes.text() });
       return;
     }
 
-    const count = (await countRes.json()) as VercelCountResponse;
-    const timeseries = timeseriesRes.ok
-      ? ((await timeseriesRes.json()) as VercelAggregateResponse)
-      : { data: [] };
+    const timeseries = (await timeseriesRes.json()) as VercelAggregateResponse;
     const paths = pathsRes.ok ? ((await pathsRes.json()) as VercelAggregateResponse) : { data: [] };
 
     const series: SeriesPoint[] = (timeseries.data ?? []).map((row) => ({
@@ -117,13 +111,18 @@ export default async function handler(req: RequestLike, res: ResponseLike) {
       visitors: row.visitors ?? 0,
     }));
 
+    const totals = series.reduce(
+      (acc, point) => ({
+        pageviews: acc.pageviews + point.pageviews,
+        visitors: acc.visitors + point.visitors,
+      }),
+      { pageviews: 0, visitors: 0 }
+    );
+
     res.setHeader('Cache-Control', 's-maxage=300, stale-while-revalidate=600');
     res.status(200).json({
       period,
-      totals: {
-        pageviews: count.data?.pageviews ?? 0,
-        visitors: count.data?.visitors ?? 0,
-      },
+      totals,
       series,
       topPages: (paths.data ?? []).map((row) => ({
         path: row.requestPath ?? '/',
